@@ -13,16 +13,26 @@ module Aserto
         end
       end
 
-      def can?
+      def can?(action, path, resource = nil)
+        if resource
+          Aserto.with_resource_mapper do
+            {
+              resource: resource.as_json
+            }
+          end
+        end
+        request.request_method == action.to_s.upcase.to_sym if action
+        request.path_info = path if path
+
         Aserto::AuthClient.new(request).is
       end
 
-      def cannot?
-        !can?
+      def cannot?(resource)
+        !can?(resource)
       end
 
       def authorize!
-        raise Aserto::Rails::AccessDenied unless can?
+        raise Aserto::AccessDenied unless Aserto::AuthClient.new(request).is
       end
 
       class << self

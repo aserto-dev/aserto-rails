@@ -11,7 +11,7 @@ module Aserto
       end
 
       def authorize_resource
-        raise Aserto::Rails::AccessDenied unless Aserto::AuthClient.new(@controller.request).is
+        raise Aserto::AccessDenied unless Aserto::AuthClient.new(@controller.request).is
       end
 
       class << self
