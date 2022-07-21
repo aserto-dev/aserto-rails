@@ -13,22 +13,22 @@ module Aserto
         end
       end
 
-      def authorize!
-        raise Aserto::Rails::AccessDenied unless Aserto::AuthClient.new(request).is
-      end
-
       def can?
         Aserto::AuthClient.new(request).is
       end
 
       def cannot?
-        !Aserto::AuthClient.new(request).is
+        !can?
+      end
+
+      def authorize!
+        raise Aserto::Rails::AccessDenied unless can?
       end
 
       class << self
         def included(base)
           base.extend ClassMethods
-          base.helper_method :can?, :cannot?, :current_ability if base.respond_to? :helper_method
+          base.helper_method :can?, :cannot? if base.respond_to? :helper_method
         end
       end
     end
