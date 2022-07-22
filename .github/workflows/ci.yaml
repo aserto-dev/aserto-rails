@@ -14,6 +14,7 @@ on:
 env:
   VAULT_ADDR: https://vault.eng.aserto.com/
   GO_VERSION: "1.17"
+  RAILS_ENV: test
 
 jobs:
   lint:
