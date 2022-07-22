@@ -21,3 +21,4 @@ build
 .bundle
 Gemfile.lock
 Gemfile.local
+gemfiles/*.lock
