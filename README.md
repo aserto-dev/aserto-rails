@@ -175,6 +175,17 @@ Prerequisites:
  Run `bundle install` to install dependencies. Then, run `bundle exec rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 
+aserto-rails uses [appraisals](https://github.com/thoughtbot/appraisal) to test the code base against multiple versions
+of Rails, as well as the different model adapters.
+
+When first developing, you need to run `bundle exec appraisal install`, to install the different sets.
+
+You can then run all appraisal files (like CI does), with `bundle exec appraisal rake spec` or just run a specific set `bundle exec appraisal rails_7.0.0 rake spec`.
+
+If you'd like to run a specific set of tests within a specific file or folder you can use `SPEC=path/to/file/or/folder bundle exec appraisal rails_7.0.0 rake spec rake`.
+
+Eg: `SPEC=spec/aserto/rails/controller_additions_spec.rb:31 bundle exec appraisal rails_7.0.0 rake spec rake`
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/aserto-dev/aserto-rails. This project is intended to be a safe, welcoming space for collaboration.
