@@ -76,10 +76,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
 
       - name: run RSpec
         run: |
+          bundle install -j8
           bundle exec appraisal rake spec
 
   release:
