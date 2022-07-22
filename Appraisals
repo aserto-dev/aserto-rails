@@ -38,7 +38,7 @@ end
 
 appraise "rails_main" do
   git "https://github.com/rails/rails", branch: "main" do
-    gem "activesupport", require: "active_supportactionpackall"
+    gem "activesupport", require: "active_support/all"
     gem "actionpack", require: "action_dispatch"
   end
 end

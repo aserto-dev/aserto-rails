@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require "rubygems"
 require "bundler/setup"
+
+Bundler.require
+
 require "rspec"
 require "grpc_mock/rspec"
 require "rack"

@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "active_support/all"
-require "action_dispatch"
-
 class Controller
   attr_reader :request
 
