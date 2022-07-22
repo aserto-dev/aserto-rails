@@ -13,7 +13,7 @@ module Aserto
         end
       end
 
-      def can?(action, path, resource = nil)
+      def can?(action = nil, path = nil, resource = nil)
         if resource
           Aserto.with_resource_mapper do
             {
@@ -21,7 +21,7 @@ module Aserto
             }
           end
         end
-        request.request_method == action.to_s.upcase.to_sym if action
+        request.request_method = action.to_s.upcase if action
         request.path_info = path if path
 
         Aserto::AuthClient.new(request).is
