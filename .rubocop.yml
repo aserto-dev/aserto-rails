@@ -3,6 +3,7 @@ AllCops:
   TargetRubyVersion: 2.7
   Exclude:
     - vendor/bundle/**/*
+    - gemfiles/*
 
 require:
  - rubocop-rspec

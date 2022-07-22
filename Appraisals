@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 appraise "rails_5.0.2" do
-  gem "rails", "~> 5.0.2"
   gem "activesupport", "~> 5.0.2", require: "active_support/all"
   gem "actionpack", "~> 5.0.2", require: "action_dispatch"
 end
