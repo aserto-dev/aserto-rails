@@ -27,8 +27,8 @@ module Aserto
         Aserto::AuthClient.new(request).is
       end
 
-      def cannot?(resource)
-        !can?(resource)
+      def cannot?(action = nil, path = nil, resource = nil)
+        !can?(action, path, resource)
       end
 
       def authorize!

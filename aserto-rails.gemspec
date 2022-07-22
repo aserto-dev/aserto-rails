@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "aserto", "~> 0.0.2"
 
   # development dependencies
+  spec.add_development_dependency "appraisal", "~> 2.0", ">= 2.0.0"
   spec.add_development_dependency("bundler", ">= 1.15.0", "< 3.0")
   spec.add_development_dependency "codecov", "~> 0.6"
   spec.add_development_dependency "grpc_mock", "~> 0.4"

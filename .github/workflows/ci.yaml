@@ -37,7 +37,7 @@ jobs:
         run: bundle exec rubocop --parallel
 
       - name: run RSpec
-        run: bundle exec rspec
+        run: bundle exec appraisal rake spec
 
   release:
     runs-on: ubuntu-latest
