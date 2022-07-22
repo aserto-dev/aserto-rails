@@ -80,6 +80,7 @@ jobs:
       - name: run RSpec
         run: |
           bundle install -j8
+          bundle exec appraisal install -j8
           bundle exec appraisal rake spec
 
   release:
