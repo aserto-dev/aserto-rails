@@ -157,10 +157,10 @@ end
 
 ## Check Permissions
 
-The current user's permissions can then be checked using the `can?` and `cannot?` methods in views and controllers.
+The current user's permissions can then be checked using the `allowed?`, `visible` and `enabled?` methods in views and controllers.
 
 ```erb
-<% if can? :get, "/posts/:id", @post %>
+<% if allowed? :get, "/posts/:id", @post %>
   <%= link_to "View", @post %>
 <% end %>
 ```

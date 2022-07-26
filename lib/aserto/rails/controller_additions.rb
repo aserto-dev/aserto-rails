@@ -12,8 +12,35 @@ module Aserto
           ControllerResource
         end
       end
+      class << self
+        def included(base)
+          base.extend ClassMethods
+          base.helper_method :allowed?, :visible?, :enabled? if base.respond_to? :helper_method
+        end
+      end
 
-      def can?(action = nil, path = nil, resource = nil)
+      def allowed?(action = nil, path = nil, resource = nil)
+        augment_request!(action, path, resource)
+        Aserto::AuthClient.new(request).allowed?
+      end
+
+      def visible?(action = nil, path = nil, resource = nil)
+        augment_request!(action, path, resource)
+        Aserto::AuthClient.new(request).visible?
+      end
+
+      def enabled?(action = nil, path = nil, resource = nil)
+        augment_request!(action, path, resource)
+        Aserto::AuthClient.new(request).enabled?
+      end
+
+      def authorize!
+        raise Aserto::AccessDenied unless Aserto::AuthClient.new(request).is
+      end
+
+      private
+
+      def augment_request!(action, path, resource)
         if resource
           Aserto.with_resource_mapper do
             {
@@ -23,23 +50,6 @@ module Aserto
         end
         request.request_method = action.to_s.upcase if action
         request.path_info = path if path
-
-        Aserto::AuthClient.new(request).is
-      end
-
-      def cannot?(action = nil, path = nil, resource = nil)
-        !can?(action, path, resource)
-      end
-
-      def authorize!
-        raise Aserto::AccessDenied unless Aserto::AuthClient.new(request).is
-      end
-
-      class << self
-        def included(base)
-          base.extend ClassMethods
-          base.helper_method :can?, :cannot? if base.respond_to? :helper_method
-        end
       end
     end
   end

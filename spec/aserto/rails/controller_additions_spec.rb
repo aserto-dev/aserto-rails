@@ -15,13 +15,16 @@ describe Aserto::Rails::ControllerAdditions do
   let(:client) { Aserto::AuthClient.new(request) }
 
   before do
-    allow(controller_class).to receive(:helper_method).with(:can?, :cannot?)
+    allow(controller_class).to receive(:helper_method).with(:allowed?, :visible?, :enabled?)
     allow(controller_class).to receive(:before_action)
     allow(controller).to receive(:params).and_return({})
     allow(request).to receive(:request_method=)
     allow(request).to receive(:path_info=)
     allow(Aserto::AuthClient).to receive(:new).and_return(client)
     allow(client).to receive(:is).and_return(true)
+    allow(client).to receive(:allowed?).and_return(true)
+    allow(client).to receive(:visible?).and_return(false)
+    allow(client).to receive(:enabled?).and_return(false)
     controller_class.send(:include, described_class)
   end
 
@@ -29,12 +32,16 @@ describe Aserto::Rails::ControllerAdditions do
     expect(controller.class.aserto_resource_class).to eq(Aserto::Rails::ControllerResource)
   end
 
-  it "provides a can? method" do
-    expect(controller.can?(:foo, :bar)).to be(true)
+  it "provides a allowed? method" do
+    expect(controller.allowed?(:foo, :bar)).to be(true)
   end
 
-  it "provides a cannot? method" do
-    expect(controller.cannot?(:foo, :bar)).to be(false)
+  it "provides a visible? method" do
+    expect(controller.visible?(:foo, :bar)).to be(false)
+  end
+
+  it "provides a enabled? method" do
+    expect(controller.enabled?(:foo, :bar)).to be(false)
   end
 
   describe "authorize_resource" do
