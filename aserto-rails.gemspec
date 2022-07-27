@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/aserto-dev/aserto-rails"
   spec.metadata["changelog_uri"] = "https://github.com/aserto-dev/aserto-rails"
-  spec.metadata["documentation_uri"] = "https://docs.aserto.com/docs/software-development-kits/ruby/middleware"
+  spec.metadata["documentation_uri"] = "https://docs.aserto.com/docs/software-development-kits/ruby/rails"
 
   dirs =
     Dir[File.join(__dir__, "README.md")] +
