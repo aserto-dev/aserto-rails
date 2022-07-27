@@ -114,7 +114,7 @@ end
 # config/initializers/aserto.rb
 require "aserto/rails"
 
-Aserto::Authorization do |config|
+Aserto.configure do |config|
   config.enabled = true
   config.policy_id = "my-policy-id"
   config.tenant_id = "my-tenant-id"
