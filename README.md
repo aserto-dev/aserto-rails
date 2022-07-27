@@ -1,5 +1,10 @@
 # Aserto Rails
 
+[![Gem Version](https://badge.fury.io/rb/aserto-rails.svg)](https://badge.fury.io/rb/aserto-rails)
+[![ci](https://github.com/aserto-dev/aserto-rails/actions/workflows/ci.yaml/badge.svg)](https://github.com/aserto-dev/aserto-rails/actions/workflows/ci.yaml)
+[![slack](https://img.shields.io/badge/slack-Aserto%20Community-brightgreen)](https://asertocommunity.slack.com
+)
+
 Aserto authorization library for Ruby and Ruby on Rails.
 
 Built on top of [aserto](https://github.com/aserto-dev/aserto-ruby) and [aserto-grpc-authz](https://github.com/aserto-dev/ruby-grpc-authz).
