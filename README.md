@@ -132,22 +132,21 @@ end
 
 ## Controller helpers
 
-The `authorize!` method in the controller will raise an exception if the user is not able to perform the given action.
+The `aserto_authorize!` method in the controller will raise an exception if the user is not able to perform the given action.
 
 ```ruby
 def show
-  authorize!
+  aserto_authorize!
   @post = Post.find(params[:id])
 end
 ```
 
-Setting this for every action can be tedious, therefore the `authorize_resource` method is provided to
-automatically authorize all actions in a RESTful style resource controller.
+Setting this for every action can be tedious, therefore the `aserto_authorize_resource` method is provided to automatically authorize all actions in a RESTful style resource controller.
 It will use a before action to load the resource into an instance variable and authorize it for every action.
 
 ```ruby
 class PostsController < ApplicationController
-  authorize_resource
+  aserto_authorize_resource
 
   def show
     # getting a single post authorized

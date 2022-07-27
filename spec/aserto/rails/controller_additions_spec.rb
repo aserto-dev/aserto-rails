@@ -44,22 +44,22 @@ describe Aserto::Rails::ControllerAdditions do
     expect(controller.enabled?(:foo, :bar)).to be(false)
   end
 
-  describe "authorize_resource" do
+  describe "aserto_authorize_resource" do
     let(:aserto_resource_class) { class_double(Aserto::Rails::ControllerResource) }
 
     it "setups a before filter which passes call to ControllerResource" do
       allow(aserto_resource_class).to receive(:new).with(controller, nil, { foo: :bar }) { aserto_resource_class }
-      controller_class.authorize_resource foo: :bar
+      controller_class.aserto_authorize_resource foo: :bar
 
       expect(controller_class)
         .to have_received(:before_action).with({}) { |_options, &block| block.call(controller) }
     end
 
-    it "authorize_resource properly passes first argument as the resource name" do
+    it "aserto_authorize_resource properly passes first argument as the resource name" do
       allow(aserto_resource_class).to receive(:new).with(controller, :project, { foo: :bar }) do
         aserto_resource_class
       end
-      controller_class.authorize_resource :project, foo: :bar
+      controller_class.aserto_authorize_resource :project, foo: :bar
       expect(controller_class)
         .to have_received(:before_action).with({}) { |_options, &block| block.call(controller) }
     end
@@ -67,7 +67,7 @@ describe Aserto::Rails::ControllerAdditions do
     context "with conditions" do
       it "setups a before filter which passes call to ControllerResource" do
         allow(aserto_resource_class).to receive(:new).with(controller, nil, { foo: :bar }) { aserto_resource_class }
-        controller_class.authorize_resource foo: :bar, except: :show, if: true
+        controller_class.aserto_authorize_resource foo: :bar, except: :show, if: true
 
         expect(controller_class)
           .to have_received(:before_action).with({ except: :show, if: true }) do |_options, &block|
@@ -82,7 +82,7 @@ describe Aserto::Rails::ControllerAdditions do
       end
 
       it "prepends the before filter" do
-        controller_class.authorize_resource foo: :bar, prepend: true
+        controller_class.aserto_authorize_resource foo: :bar, prepend: true
         expect(controller_class).to have_received(:prepend_before_action).with({})
       end
     end

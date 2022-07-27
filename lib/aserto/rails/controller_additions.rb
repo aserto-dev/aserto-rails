@@ -4,7 +4,7 @@ module Aserto
   module Rails
     module ControllerAdditions
       module ClassMethods
-        def authorize_resource(*args)
+        def aserto_authorize_resource(*args)
           aserto_resource_class.add_before_action(self, :authorize_resource, *args)
         end
 
@@ -34,7 +34,7 @@ module Aserto
         Aserto::AuthClient.new(request).enabled?
       end
 
-      def authorize!
+      def aserto_authorize!
         raise Aserto::AccessDenied unless Aserto::AuthClient.new(request).is
       end
 
