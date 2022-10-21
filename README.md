@@ -121,11 +121,12 @@ require "aserto/rails"
 
 Aserto.configure do |config|
   config.enabled = true
-  config.policy_id = "my-policy-id"
-  config.tenant_id = "my-tenant-id"
+  config.policy_name = "my-policy-name"
+  config.instance_label = "my-instance"
   config.authorizer_api_key = Rails.application.credentials.aserto[:authorizer_api_key]
   config.policy_root = "peoplefinder"
-  config.service_url = "authorizer.eng.aserto.com:8443"
+  config.service_url = "localhost:8282"
+  config.cert_path = "/path/to/topaz/cert.crt"
   config.decision = "allowed"
   config.logger = Rails.logger
   config.identity_mapping = {
