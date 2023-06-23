@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description   = "Aserto authorization library for Ruby and Ruby on Rails"
   spec.homepage      = "https://www.aserto.com"
   spec.license       = "Apache-2.0"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.0.0")
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
@@ -31,14 +31,5 @@ Gem::Specification.new do |spec|
   spec.metadata["rubygems_mfa_required"] = "true"
 
   # runtime dependencies
-  spec.add_runtime_dependency "aserto", "~> 0.20.2"
-
-  # development dependencies
-  spec.add_development_dependency "appraisal", "~> 2.0", ">= 2.0.0"
-  spec.add_development_dependency("bundler", ">= 1.15.0", "< 3.0")
-  spec.add_development_dependency "codecov", "~> 0.6"
-  spec.add_development_dependency "grpc_mock", "~> 0.4"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "rubocop-performance", "~> 1.14"
-  spec.add_development_dependency "rubocop-rspec", "~> 2.11"
+  spec.add_runtime_dependency "aserto", "~> 0.20.5"
 end
