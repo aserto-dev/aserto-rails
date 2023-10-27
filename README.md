@@ -138,6 +138,8 @@ end
 
 ## Controller helpers
 
+### aserto_authorize!
+
 The `aserto_authorize!` method in the controller will raise an exception if the user is not able to perform the given action.
 
 ```ruby
@@ -156,6 +158,38 @@ class PostsController < ApplicationController
   aserto_authorize_resource
   # aserto_authorize_resource only: %i[show]
   # aserto_authorize_resource except: %i[index]
+
+  def show
+    # getting a single post authorized
+  end
+
+  def index
+    # getting all posts is authorized
+  end
+end
+```
+
+### check!
+
+The `check!` method in the controller will raise an exception if the user is not able to perform the given action.
+
+```ruby
+def show
+  # only users in the "evil_genius" group are allowed to get this resource
+  check!(object_id: "evil_genius", object_type: "group", relation: "member")
+  @post = Post.find(params[:id])
+end
+```
+
+Setting this for every action can be tedious, therefore the `aserto_check_resource` method is provided to
+automatically authorize all actions in a RESTful style resource controller.
+It will use a before action to load the resource into an instance variable and authorize it for every action.
+
+```ruby
+class PostsController < ApplicationController
+  aserto_authorize_resource
+  # aserto_check_resource only: %i[show], params: { object_id: "evil_genius", object_type: "group", relation: "member" }
+  # aserto_check_resource except: %i[index], params: { object_id: "evil_genius", object_type: "group", relation: "member" }
 
   def show
     # getting a single post authorized

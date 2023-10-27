@@ -8,6 +8,10 @@ module Aserto
           aserto_resource_class.add_before_action(self, :authorize_resource, *args)
         end
 
+        def aserto_check_resource(*args)
+          aserto_resource_class.add_before_action(self, :check_resource, *args)
+        end
+
         def aserto_resource_class
           ControllerResource
         end
@@ -36,6 +40,23 @@ module Aserto
 
       def aserto_authorize!
         raise Aserto::AccessDenied unless Aserto::AuthClient.new(request).is
+      end
+
+      #
+      # Authorization call based on check relation
+      #
+      # @param [String] object_id
+      # @param [String] object_type
+      # @param [String] relation
+      #
+      # @return [nil]
+      #
+      # @raise Aserto::AccessDenied
+      #
+      def check!(object_id:, object_type:, relation:)
+        raise Aserto::AccessDenied unless Aserto::AuthClient.new(request).check(
+          object_id: object_id, object_type: object_type, relation: relation
+        )
       end
 
       private
