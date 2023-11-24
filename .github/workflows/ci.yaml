@@ -13,7 +13,7 @@ on:
 
 env:
   VAULT_ADDR: https://vault.eng.aserto.com/
-  GO_VERSION: "1.17"
+  GO_VERSION: "1.19"
   RAILS_ENV: test
 
 jobs:
@@ -29,7 +29,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7
+          ruby-version: 3.1
           bundler-cache: true
 
       - name: Run linter
@@ -40,11 +40,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ['2.7', '3.0']
+        ruby: ['3.0']
         gemfile: ['gemfiles/rails_6.0.0.gemfile', 'gemfiles/rails_6.1.0.gemfile', 'gemfiles/rails_main.gemfile']
 
         include:
           - gemfile: 'gemfiles/rails_7.0.0.gemfile'
+            ruby: '3.2'
+          - gemfile: 'gemfiles/rails_7.0.0.gemfile'
             ruby: '3.1'
           - gemfile: 'gemfiles/rails_7.0.0.gemfile'
             ruby: '3.0'
@@ -52,9 +54,6 @@ jobs:
             ruby: '3.1'
           - gemfile: 'gemfiles/rails_6.1.0.gemfile'
             ruby: '3.0'
-        exclude:
-          - gemfile: 'gemfiles/rails_main.gemfile'
-            ruby: '2.7' # rails 7+ requires ruby 3.0+
 
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
@@ -130,7 +129,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0
+          ruby-version: 3.1
 
       - name: Build and push the gem
         run: go run mage.go release
@@ -144,4 +143,4 @@ jobs:
           default_author: github_actions
           message: 'Bump to next version'
           add: 'VERSION'
-          push: origin HEAD:main
+          push: origin HEAD:v2

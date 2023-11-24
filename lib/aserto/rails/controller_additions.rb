@@ -44,7 +44,7 @@ module Aserto
         if resource
           Aserto.with_resource_mapper do
             {
-              resource: resource.as_json
+              resource: resource.as_json.transform_keys(&:to_s)
             }
           end
         end
