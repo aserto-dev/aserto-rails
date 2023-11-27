@@ -9,8 +9,6 @@ require "rspec"
 require "grpc_mock/rspec"
 require "rack"
 
-require "aserto/rails"
-
 require "simplecov"
 SimpleCov.start do
   enable_coverage :branch
@@ -32,3 +30,5 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+require "aserto/rails"

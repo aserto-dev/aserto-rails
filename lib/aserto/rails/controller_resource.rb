@@ -10,6 +10,22 @@ module Aserto
         @name = args.first
       end
 
+      #
+      # Authorization call based on check relation
+      #
+      # @param [String] object_id
+      # @param [String] object_type
+      # @param [String] relation
+      #
+      # @return [nil]
+      #
+      # @raise Aserto::AccessDenied
+      #
+      def check_resource
+        client = Aserto::AuthClient.new(@controller.request)
+        raise Aserto::AccessDenied unless client.check(**(@options[:params] || {}))
+      end
+
       def authorize_resource
         raise Aserto::AccessDenied unless Aserto::AuthClient.new(@controller.request).is
       end

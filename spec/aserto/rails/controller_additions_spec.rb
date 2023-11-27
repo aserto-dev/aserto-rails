@@ -21,10 +21,7 @@ describe Aserto::Rails::ControllerAdditions do
     allow(request).to receive(:request_method=)
     allow(request).to receive(:path_info=)
     allow(Aserto::AuthClient).to receive(:new).and_return(client)
-    allow(client).to receive(:is).and_return(true)
-    allow(client).to receive(:allowed?).and_return(true)
-    allow(client).to receive(:visible?).and_return(false)
-    allow(client).to receive(:enabled?).and_return(false)
+    allow(client).to receive_messages(is: true, check: true, allowed?: true, visible?: false, enabled?: false)
     controller_class.send(:include, described_class)
   end
 
@@ -83,6 +80,53 @@ describe Aserto::Rails::ControllerAdditions do
 
       it "prepends the before filter" do
         controller_class.aserto_authorize_resource foo: :bar, prepend: true
+        expect(controller_class).to have_received(:prepend_before_action).with({})
+      end
+    end
+  end
+
+  describe "aserto_check_resource" do
+    let(:aserto_resource_class) { class_double(Aserto::Rails::ControllerResource) }
+
+    it "setups a before filter which passes call to ControllerResource" do
+      allow(aserto_resource_class).to receive(:new).with(controller, nil, { foo: :bar }) { aserto_resource_class }
+      controller_class.aserto_check_resource foo: :bar
+
+      expect(controller_class)
+        .to have_received(:before_action).with({}) { |_options, &block| block.call(controller) }
+    end
+
+    it "aserto_check_resource properly passes first argument as the resource name" do
+      allow(aserto_resource_class).to receive(:new).with(controller, :project, { foo: :bar }) do
+        aserto_resource_class
+      end
+      controller_class.aserto_check_resource :project, foo: :bar
+      expect(controller_class)
+        .to have_received(:before_action).with({}) { |_options, &block| block.call(controller) }
+    end
+
+    context "with conditions" do
+      it "setups a before filter which passes call to ControllerResource" do
+        allow(aserto_resource_class).to receive(:new).with(controller, nil, { foo: :bar }) { aserto_resource_class }
+        controller_class.aserto_check_resource(
+          foo: :bar, except: :show, if: true,
+          params: { object_id: "evil_genius", object_type: "group", relation: "member" }
+        )
+
+        expect(controller_class)
+          .to have_received(:before_action).with({ except: :show, if: true }) do |_options, &block|
+            block.call(controller)
+          end
+      end
+    end
+
+    context "with prepend" do
+      before do
+        allow(controller_class).to receive(:prepend_before_action)
+      end
+
+      it "prepends the before filter" do
+        controller_class.aserto_check_resource foo: :bar, prepend: true
         expect(controller_class).to have_received(:prepend_before_action).with({})
       end
     end
