@@ -31,5 +31,5 @@ Gem::Specification.new do |spec|
   spec.metadata["rubygems_mfa_required"] = "true"
 
   # runtime dependencies
-  spec.add_runtime_dependency "aserto", "~> 0.30.1"
+  spec.add_runtime_dependency "aserto", "~> 0.30.6"
 end

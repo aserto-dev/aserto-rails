@@ -41,9 +41,11 @@ jobs:
       fail-fast: false
       matrix:
         ruby: ['3.0']
-        gemfile: ['gemfiles/rails_6.0.0.gemfile', 'gemfiles/rails_6.1.0.gemfile', 'gemfiles/rails_main.gemfile']
+        gemfile: ['gemfiles/rails_6.0.0.gemfile', 'gemfiles/rails_6.1.0.gemfile']
 
         include:
+          - gemfile: 'gemfiles/rails_main.gemfile'
+            ruby: '3.2'
           - gemfile: 'gemfiles/rails_7.0.0.gemfile'
             ruby: '3.2'
           - gemfile: 'gemfiles/rails_7.0.0.gemfile'
