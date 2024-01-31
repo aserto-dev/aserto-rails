@@ -53,9 +53,9 @@ module Aserto
       #
       # @raise Aserto::AccessDenied
       #
-      def check!(object_id:, object_type:, relation:)
+      def check!(object_id:, object_type:, relation:, options: {})
         raise Aserto::AccessDenied unless Aserto::AuthClient.new(request).check(
-          object_id: object_id, object_type: object_type, relation: relation
+          object_id: object_id, object_type: object_type, relation: relation, options: options
         )
       end
 
