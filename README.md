@@ -213,8 +213,6 @@ The current user's permissions can then be checked using the `allowed?`, `visibl
 
 ## Development
 Prerequisites:
-
-    - go >= 1.17 to run mage
     - Ruby >= 3.0 to run the code
 
 
