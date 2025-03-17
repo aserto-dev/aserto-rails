@@ -22,3 +22,4 @@ build
 Gemfile.lock
 Gemfile.local
 gemfiles/*.lock
+.qodo
