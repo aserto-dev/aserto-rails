@@ -10,7 +10,7 @@ group :development do
   gem "bundler", ">= 1.15.0", "< 3.0"
   gem "codecov", "~> 0.6"
   gem "grpc_mock", "~> 0.4"
-  gem "rspec", "~> 3.0"
-  gem "rubocop-performance", "~> 1.14"
-  gem "rubocop-rspec", "~> 2.11"
+  gem "rspec", "~> 3.5"
+  gem "rubocop-performance", "~> 1.24"
+  gem "rubocop-rspec", "~> 3.5"
 end
